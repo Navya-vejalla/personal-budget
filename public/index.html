@@ -73,7 +73,6 @@
 
     <footer class="bottom">
         <div class="center">
-            <!-- This is an SEO Change -->
             <p>All rights reserved &copy; Navya Vejalla</p>
         </div>
     </footer>
@@ -86,24 +85,11 @@
                 var dataSource = {
                     datasets: [
                         {
-                            data:[30,350,90],
-                            backgroundColor:[
-                                '#ffcd56',
-                                '#ff6384',
-                                '#36a2eb',
-                                '#fd6b19',
-                                "#6b486b",
-                                "#a05d56",
-                                "#d0743c",
-                                "#ff8c00"
-                            ],
+                            data:[],
+                            backgroundColor:[],
                         }
                     ],
-                    labels: [
-                        'Eat Out',
-                        'Rent',
-                        'Groceries'
-                    ]
+                    labels: []
                 };
 
                 function createChart() {
@@ -114,12 +100,12 @@
                     });      
                 }
                 function getBudget(){
-                    axios.get('http://localhost:3000/budget')
+                    axios.get('http://localhost:3006/budget')
                     .then(function(res){
                         console.log(res);
                         for ( var i = 0; i < res.data.myBudget.length; i++) {
-                            dataSource.datasets[0].data[i] = res.data.myBudget[i].budget;
-                            //dataSource.datasets[0].backgroundColor[i] = res.data.myMonthlyBudget[i].color;
+                            dataSource.datasets[0].data[i] = res.data.myBudget[i].relatedValue;
+                            dataSource.datasets[0].backgroundColor[i] = res.data.myBudget[i].color;
                             dataSource.labels[i] = res.data.myBudget[i].title;
                         }
                         advancedChartData =  res.data.myBudget
@@ -162,13 +148,16 @@
                     svg.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
                     var key = function(d){ return d.data.label; };
+                    console.log("Key value :"+key);
 
                     var color = d3.scale.ordinal()
                     .domain(dataSource.labels)
                     .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
                     function randomData (){
+                        
                     return advancedChartData.map(function(budgetInfo){
-                        return { label: budgetInfo.title, value: budgetInfo.budget, color: color }
+                        console.log("budget Info "+ budgetInfo )
+                        return { label: budgetInfo.title, value: budgetInfo.relatedValue, color: budgetInfo.color }
                     });
                     }
 
