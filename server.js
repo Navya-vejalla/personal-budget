@@ -28,7 +28,7 @@ app.get('/budget',async(req,res)=>{
 });
 
 // Add new chart entry endpoint
-app.post('/add-chart', async (req, res) => {
+app.post('/data', async (req, res) => {
     try {
       const newEntry = new ChartEntry(req.body);
       const savedEntry = await newEntry.save();

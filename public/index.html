@@ -152,8 +152,8 @@
 
                     var color = d3.scale.ordinal()
                     .domain(dataSource.labels)
-                    .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
-                    function randomData (){
+                    .range(dataSource.datasets[0].backgroundColor);
+                   function randomData (){
                         
                     return advancedChartData.map(function(budgetInfo){
                         console.log("budget Info "+ budgetInfo )
